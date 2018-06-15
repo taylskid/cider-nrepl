@@ -90,7 +90,8 @@
     (if (= (.getProtocol url) "file") ;; expected common case
       (let [^Path p (Paths/get (.toURI url))
             content-type (normalize-content-type
-                          (get-file-content-type p))
+                          (or (get-file-content-type p)
+                              ""))
             buff (Files/readAllBytes p)]
         (slurp-reply content-type buff))
 
